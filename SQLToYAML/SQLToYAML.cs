@@ -12,7 +12,7 @@ namespace SQLToYAML
     public delegate void MadeProgressEventHandler(object sender, EventArgs e);
     public delegate void ExtractionFinishedEventHandler(object sender, EventArgs e);
 
-    public class SQLToYAML
+    public class SQLToYAML: IDisposable
     {
         private string table;
         private TextWriter outputFile;
@@ -27,16 +27,17 @@ namespace SQLToYAML
             this.table = table;
             this.outputFile = outputFile;
             this.notificationPercent = notificationPercent;
-            this.conn = new SqlConnection("Data Source=localhost; Initial Catalog=ebs_DATADUMP; Integrated Security=SSPI;");
+            conn = new SqlConnection("Data Source=localhost; Initial Catalog=ebs_DATADUMP; Integrated Security=SSPI;");
+            conn.Open();
         }
 
         public SQLToYAML(TextWriter outputFile, int notificationPercent = 5) : this("*", outputFile, notificationPercent)
         {
         }
 
-        public ~SQLToYAML()
+        public void Dispose()
         {
-            if (conn != null)
+            if (conn.State != ConnectionState.Closed)
             {
                 conn.Close();
             }
@@ -62,8 +63,12 @@ namespace SQLToYAML
         public List<string> ListTables()
         {
             DataTable t = conn.GetSchema("Tables");
-            //TODO(swsnider): Extract table names from the DataTable.
-            return null;
+            List<string> result = new List<string>();
+            foreach (DataRow row in t.Rows)
+            {
+                result.Add(row["TABLE_NAME"].ToString());
+            }
+            return result;
         }
 
         protected virtual void ConvertSQLToYAML()

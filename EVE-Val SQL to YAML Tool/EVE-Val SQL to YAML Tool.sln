@@ -3,16 +3,50 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVE-Val SQL to YAML Tool", "EVE-Val SQL to YAML Tool.csproj", "{57582151-8AA3-4C79-AEEE-04BF79A2857E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLToYAML", "..\SQLToYAML\SQLToYAML.csproj", "{E271FABA-D0CE-4FCF-88F5-8925A22B0053}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL To YAML CLI", "SQL To YAML CLI\SQL To YAML CLI.csproj", "{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Debug|x86.ActiveCfg = Debug|x86
 		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Debug|x86.Build.0 = Debug|x86
+		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Release|Any CPU.ActiveCfg = Release|x86
+		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Release|x86.ActiveCfg = Release|x86
 		{57582151-8AA3-4C79-AEEE-04BF79A2857E}.Release|x86.Build.0 = Release|x86
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E271FABA-D0CE-4FCF-88F5-8925A22B0053}.Release|x86.ActiveCfg = Release|Any CPU
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Debug|x86.ActiveCfg = Debug|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Debug|x86.Build.0 = Debug|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Release|Any CPU.ActiveCfg = Release|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Release|x86.ActiveCfg = Release|x86
+		{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
