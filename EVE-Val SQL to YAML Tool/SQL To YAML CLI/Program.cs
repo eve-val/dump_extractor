@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using SQLToYAML;
+using ExtractorLib;
 
 namespace SQL_To_YAML_CLI
 {
@@ -12,7 +12,7 @@ namespace SQL_To_YAML_CLI
         static void Main(string[] args)
         {
             StringWriter w = new StringWriter();
-            SQLToYAML.SQLToYAML sty = new SQLToYAML.SQLToYAML(w);
+            SQLToYAML sty = new SQLToYAML(w);
             foreach (string table_name in sty.ListTables())
             {
                 Console.WriteLine(table_name);

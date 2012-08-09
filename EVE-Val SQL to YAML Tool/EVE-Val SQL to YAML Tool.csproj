@@ -93,9 +93,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SQLToYAML\SQLToYAML.csproj">
+    <ProjectReference Include="..\SQLToYAML\ExtractorLib.csproj">
       <Project>{E271FABA-D0CE-4FCF-88F5-8925A22B0053}</Project>
-      <Name>SQLToYAML</Name>
+      <Name>ExtractorLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

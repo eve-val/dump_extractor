@@ -7,7 +7,7 @@ using System.Threading;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace SQLToYAML
+namespace ExtractorLib
 {
     public delegate void MadeProgressEventHandler(object sender, EventArgs e);
     public delegate void ExtractionFinishedEventHandler(object sender, EventArgs e);

@@ -8,7 +8,7 @@
     <ProjectGuid>{E271FABA-D0CE-4FCF-88F5-8925A22B0053}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SQLToYAML</RootNamespace>
+    <RootNamespace>ExtractorLib</RootNamespace>
     <AssemblyName>SQLToYAML</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
