@@ -11,8 +11,8 @@ namespace SQL_To_YAML_CLI
     {
         static void Main(string[] args)
         {
-            StreamWriter w = new StreamWriter("C:\\test.yaml");
-            SQLToYAML sty = new SQLToYAML("chrAttributes", w);
+            StreamWriter w = new StreamWriter("C:\\test2.yaml");
+            SQLToYAML sty = new SQLToYAML("invCategories", w);
             sty.MadeProgress += new MadeProgressEventHandler(sty_MadeProgress);
             sty.ExtractionFinished += new ExtractionFinishedEventHandler(sty_ExtractionFinished);
             sty.StartProcessing();

@@ -156,7 +156,6 @@ namespace ExtractorLib
             outputFile.WriteLine("database:");
             foreach (string t in tablesToExtract)
             {
-                //Step 1: SELECT * FROM t;
                 SqlCommand queryCommand = new SqlCommand("SELECT * FROM " + t, conn);
                 SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
                 DataTable dataTable = new DataTable();
@@ -175,18 +174,19 @@ namespace ExtractorLib
 
                 outputFile.WriteLine("    data:");
 
-                //Step 2: loop over results, streaming each one to the writer and flushing.
                 foreach (DataRow row in dataTable.Rows)
                 {
-                    //TODO(swsnider): compute progress/fire events.
                     numRows++;
                     string[] data = new string[columns.Count()];
                     for (int i = 0; i < columns.Count(); i++ )
                     {
-                        data[i] = columns[i] + ": " + row[columns[i]];
-                        data[i] = data[i].Replace("\n", "\\n").Replace("\r", "\\r");
+                        string c = YAMLConversion.ConvertValue((dynamic)row[columns[i]]);
+                        if (c == null) continue;
+                        data[i] = columns[i] + ": " + c;
                     }
-                    outputFile.WriteLine("      - " + String.Join("\r\n        ", data));
+                    string joinedString = String.Join("\r\n        ", data);
+                    joinedString = joinedString.Replace("\r\n        \r\n", "\r\n");
+                    outputFile.WriteLine("      - " + joinedString);
                     if ((numRows % 100) == 0)
                     {
                         outputFile.Flush();
