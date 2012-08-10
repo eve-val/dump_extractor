@@ -15,6 +15,7 @@ namespace ExtractorLib
     public class SQLToYAML : IDisposable
     {
         private string[] tablesToExtract;
+        private string table;
         private TextWriter outputFile;
         private int notificationPercent;
         private SqlConnection conn;
@@ -51,6 +52,14 @@ namespace ExtractorLib
                     conn.ConnectionString = value;
                 }
                 conn.Open();
+                if (table == "*")
+                {
+                    tablesToExtract = TableList;
+                }
+                else
+                {
+                    tablesToExtract = new string[] { table };
+                }
             }
         }
 
@@ -97,15 +106,8 @@ namespace ExtractorLib
             rows = -1;
             this.outputFile = outputFile;
             this.notificationPercent = notificationPercent;
-            ConnectionString = "Data Source=localhost; Initial Catalog=ebs_DATADUMP; Integrated Security=SSPI;";
-            if (table == "*")
-            {
-                tablesToExtract = TableList;
-            }
-            else
-            {
-                tablesToExtract = new string[] { table };
-            }
+            this.table = table;
+            this.tableCache = null;
         }
 
         public SQLToYAML(TextWriter outputFile, int notificationPercent = 5)

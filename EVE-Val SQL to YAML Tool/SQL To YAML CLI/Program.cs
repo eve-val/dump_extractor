@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using ExtractorLib;
+using CommandLine;
 
 namespace SQL_To_YAML_CLI
 {
@@ -11,8 +12,14 @@ namespace SQL_To_YAML_CLI
     {
         static void Main(string[] args)
         {
-            StreamWriter w = new StreamWriter("C:\\test2.yaml");
-            SQLToYAML sty = new SQLToYAML("invCategories", w);
+            Options options = new Options();
+            if (!CommandLineParser.Default.ParseArguments(args, options))
+            {
+                return;
+            }
+            StreamWriter w = new StreamWriter(options.outputFile);
+            SQLToYAML sty = new SQLToYAML(options.table, w, options.notificationPercent);
+            sty.ConnectionString = options.connectionString;
             sty.MadeProgress += new MadeProgressEventHandler(sty_MadeProgress);
             sty.ExtractionFinished += new ExtractionFinishedEventHandler(sty_ExtractionFinished);
             sty.StartProcessing();
