@@ -12,15 +12,14 @@ namespace ExtractorLib
     public delegate void MadeProgressEventHandler(object sender, SQLToYAML.ProgressEventArgs e);
     public delegate void ExtractionFinishedEventHandler(object sender, EventArgs e);
 
-    public class SQLToYAML : IDisposable
+    public class SQLToYAML
     {
         private string[] tablesToExtract;
         private string table;
         private TextWriter outputFile;
         private int notificationPercent;
-        private SqlConnection conn;
-        private string[] tableCache;
         private long rows;
+        private ISQLAbstraction dataLayer;
 
         public class ProgressEventArgs : EventArgs
         {
@@ -29,50 +28,6 @@ namespace ExtractorLib
                 this.progress = progress;
             }
             public long progress;
-        }
-
-        public string ConnectionString
-        {
-            get
-            {
-                return conn.ConnectionString;
-            }
-            set
-            {
-                if (conn == null)
-                {
-                    conn = new SqlConnection(value);
-                }
-                else
-                {
-                    if (conn.State != ConnectionState.Closed)
-                    {
-                        conn.Close();
-                    }
-                    conn.ConnectionString = value;
-                }
-                conn.Open();
-                if (table == "*")
-                {
-                    tablesToExtract = TableList;
-                }
-                else
-                {
-                    tablesToExtract = new string[] { table };
-                }
-            }
-        }
-
-        public string[] TableList
-        {
-            get
-            {
-                if (tableCache == null)
-                {
-                    tableCache = this.ListTables().ToArray();
-                }
-                return tableCache;
-            }
         }
 
         public long RowCount
@@ -87,12 +42,8 @@ namespace ExtractorLib
                                  "sysindexes.id WHERE sysobjects.type = 'U' AND " +
                                  "sysindexes.IndID < 2 AND sysobjects.name IN (" +
                                  inExpr + ");";
-                    SqlCommand queryCommand = new SqlCommand(qry, conn);
-                    SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
-                    DataTable t = new DataTable();
-                    t.Load(queryCommandReader);
+                    DataTable t = dataLayer.RunQuery(qry);
                     rows = (int)t.Rows[0][0];
-                    queryCommandReader.Close();
                 }
                 return rows;
             }
@@ -101,27 +52,26 @@ namespace ExtractorLib
         public event MadeProgressEventHandler MadeProgress;
         public event ExtractionFinishedEventHandler ExtractionFinished;
 
-        public SQLToYAML(string table, TextWriter outputFile, int notificationPercent = 5)
+        public SQLToYAML(string table, TextWriter outputFile, ISQLAbstraction dataLayer, int notificationPercent = 5)
         {
             rows = -1;
             this.outputFile = outputFile;
             this.notificationPercent = notificationPercent;
             this.table = table;
-            this.tableCache = null;
-        }
-
-        public SQLToYAML(TextWriter outputFile, int notificationPercent = 5)
-            : this("*", outputFile, notificationPercent)
-        {
-        }
-
-        public void Dispose()
-        {
-            if (conn.State != ConnectionState.Closed)
+            this.dataLayer = dataLayer;
+            if (table == "*")
             {
-                conn.Close();
+                tablesToExtract = dataLayer.TableList;
             }
+            else
+            {
+                tablesToExtract = new string[] { table };
+            }
+        }
 
+        public SQLToYAML(TextWriter outputFile, ISQLAbstraction dataLayer, int notificationPercent = 5)
+            : this("*", outputFile, dataLayer, notificationPercent)
+        {
         }
 
         protected virtual void OnMadeProgress(long progress)
@@ -140,17 +90,6 @@ namespace ExtractorLib
             }
         }
 
-        protected virtual List<string> ListTables()
-        {
-            DataTable t = conn.GetSchema("Tables");
-            List<string> result = new List<string>();
-            foreach (DataRow row in t.Rows)
-            {
-                result.Add(row["TABLE_NAME"].ToString());
-            }
-            return result;
-        }
-
         protected virtual void ConvertSQLToYAML()
         {
             int progress_mod = (int)Math.Ceiling((RowCount / 100.0) * notificationPercent);
@@ -158,10 +97,7 @@ namespace ExtractorLib
             outputFile.WriteLine("database:");
             foreach (string t in tablesToExtract)
             {
-                SqlCommand queryCommand = new SqlCommand("SELECT * FROM " + t, conn);
-                SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
-                DataTable dataTable = new DataTable();
-                dataTable.Load(queryCommandReader);
+                DataTable dataTable = dataLayer.RunQuery("SELECT * FROM " + t);
 
                 outputFile.WriteLine("  - table_name: " + t);
                 outputFile.WriteLine("    columns:");
