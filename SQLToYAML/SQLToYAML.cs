@@ -15,7 +15,6 @@ namespace ExtractorLib
     public class SQLToYAML
     {
         private string[] tablesToExtract;
-        private string table;
         private TextWriter outputFile;
         private int notificationPercent;
         private long rows;
@@ -52,20 +51,19 @@ namespace ExtractorLib
         public event MadeProgressEventHandler MadeProgress;
         public event ExtractionFinishedEventHandler ExtractionFinished;
 
-        public SQLToYAML(string table, TextWriter outputFile, ISQLAbstraction dataLayer, int notificationPercent = 5)
+        public SQLToYAML(string tables, TextWriter outputFile, ISQLAbstraction dataLayer, int notificationPercent = 5)
         {
             rows = -1;
             this.outputFile = outputFile;
             this.notificationPercent = notificationPercent;
-            this.table = table;
             this.dataLayer = dataLayer;
-            if (table == "*")
+            if (tables == "*")
             {
                 tablesToExtract = dataLayer.TableList;
             }
             else
             {
-                tablesToExtract = new string[] { table };
+                tablesToExtract = tables.Split(',');
             }
         }
 
@@ -94,26 +92,26 @@ namespace ExtractorLib
         {
             int progress_mod = (int)Math.Ceiling((RowCount / 100.0) * notificationPercent);
             long numRows = 0;
-            outputFile.WriteLine("database:");
             foreach (string t in tablesToExtract)
             {
+                outputFile.WriteLine("---");
                 DataTable dataTable = dataLayer.RunQuery("SELECT * FROM " + t);
 
-                outputFile.WriteLine("  - table_name: " + t);
-                outputFile.WriteLine("    columns:");
+                outputFile.Write("{ table_name: '" + t + "', columns: ['");
                 
                 List<string> columns = new List<string>();
 
                 foreach (DataColumn column in dataTable.Columns)
                 {
-                    outputFile.WriteLine("      - " + column.ColumnName);
                     columns.Add(column.ColumnName);
                 }
 
-                outputFile.WriteLine("    data:");
+                outputFile.Write(String.Join("', '", columns) + "'], data: [");
+                DataRow sentinel = dataTable.Rows[dataTable.Rows.Count - 1];
 
                 foreach (DataRow row in dataTable.Rows)
                 {
+                    outputFile.Write("{");
                     numRows++;
                     string[] data = new string[columns.Count()];
                     for (int i = 0; i < columns.Count(); i++ )
@@ -122,9 +120,9 @@ namespace ExtractorLib
                         if (c == null) continue;
                         data[i] = columns[i] + ": " + c;
                     }
-                    string joinedString = String.Join("\r\n        ", data);
-                    joinedString = joinedString.Replace("\r\n        \r\n", "\r\n");
-                    outputFile.WriteLine("      - " + joinedString);
+                    string joinedString = String.Join(", ", data.Where<string>((item) => item != null && item != ""));
+                    outputFile.Write(joinedString + "}");
+                    if (sentinel != row) outputFile.Write(",");
                     if ((numRows % 100) == 0)
                     {
                         outputFile.Flush();
@@ -134,6 +132,8 @@ namespace ExtractorLib
                         OnMadeProgress(numRows);
                     }
                 }
+                outputFile.WriteLine("]}");
+                outputFile.WriteLine("...");
             }
             outputFile.Flush();
             OnExtractionFinished(EventArgs.Empty);

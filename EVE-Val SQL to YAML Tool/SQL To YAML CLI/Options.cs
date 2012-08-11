@@ -9,13 +9,20 @@ namespace SQL_To_YAML_CLI
 {
     class Options
     {
-        [Option(null, "connection_string", DefaultValue="Data Source=localhost; Initial Catalog=ebs_DATADUMP; Integrated Security=SSPI;", HelpText = "The database connection string to use.")]
+        [Option(
+            null, "connection_string",
+            DefaultValue="Data Source=localhost; Initial Catalog=ebs_DATADUMP; Integrated Security=SSPI;",
+            HelpText = "The database connection string to use.")]
         public string connectionString { get; set; }
 
-        [Option("t", "table", DefaultValue="*", HelpText="The database table to extract. Defaults to '*'.")]
-        public string table { get; set; }
+        [Option(
+            "t", "tables", DefaultValue="*",
+            HelpText="Comma-delimited list of tables to extract, or '*' to extract them all. Defaults to '*'.")]
+        public string tables { get; set; }
 
-        [Option(null, "notification_percent", DefaultValue=5, HelpText="Controls what percentage of the input processed causes a progress update event.")]
+        [Option(
+            null, "notification_percent", DefaultValue=5,
+            HelpText="Controls what percentage of the input processed causes a progress update event.")]
         public int notificationPercent { get; set; }
 
         [Option("o", "output_file", Required=true, HelpText="The output filename.")]

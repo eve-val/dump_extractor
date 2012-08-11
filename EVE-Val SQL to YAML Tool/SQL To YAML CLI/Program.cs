@@ -19,7 +19,7 @@ namespace SQL_To_YAML_CLI
             }
             StreamWriter w = new StreamWriter(options.outputFile);
             DataLayer d = new DataLayer(options.connectionString);
-            SQLToYAML sty = new SQLToYAML(options.table, w, d, options.notificationPercent);
+            SQLToYAML sty = new SQLToYAML(options.tables, w, d, options.notificationPercent);
             sty.MadeProgress += new MadeProgressEventHandler(sty_MadeProgress);
             sty.ExtractionFinished += new ExtractionFinishedEventHandler(sty_ExtractionFinished);
             sty.ConvertSQLToYAML();

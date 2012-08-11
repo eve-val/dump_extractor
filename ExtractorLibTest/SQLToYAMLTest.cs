@@ -57,7 +57,7 @@ namespace ExtractorLibTest
     class SQLToYAMLTest
     {
         [Test]
-        public void simpleTest()
+        public void simpleAllTest()
         {
             StringWriter sw = new StringWriter();
             TestDataLayer dataLayer = new TestDataLayer();
@@ -69,26 +69,41 @@ namespace ExtractorLibTest
             sty.ConvertSQLToYAML();
 
             StringBuilder o = new StringBuilder();
-            o.AppendLine("database:");
-            o.AppendLine("  - table_name: tstTestTable1");
-            o.AppendLine("    columns:");
-            o.AppendLine("      - col1");
-            o.AppendLine("      - col2");
-            o.AppendLine("    data:");
-            o.AppendLine("      - col1: \"value1\"");
-            o.AppendLine("        col2: 2");
-            o.AppendLine("  - table_name: tstTestTable2");
-            o.AppendLine("    columns:");
-            o.AppendLine("      - col1");
-            o.AppendLine("      - col2");
-            o.AppendLine("    data:");
-            o.AppendLine("      - col1: !!float 1");
-            o.AppendLine("        col2: Yes");
-
+            o.AppendLine("---");
+            o.AppendLine("{ table_name: 'tstTestTable1', columns: ['col1', 'col2'], data: [{col1: \"value1\", col2: 2}]}");
+            o.AppendLine("...");
+            o.AppendLine("---");
+            o.AppendLine("{ table_name: 'tstTestTable2', columns: ['col1', 'col2'], data: [{col1: !!float 1, col2: Yes}]}");
+            o.AppendLine("...");
+            
             Assert.IsTrue(finished);
             Assert.AreEqual(2, progressNum);
             Assert.AreEqual(o.ToString(), sw.ToString());
         }
 
+        [Test]
+        public void simpleEnumeratedTest()
+        {
+            StringWriter sw = new StringWriter();
+            TestDataLayer dataLayer = new TestDataLayer();
+            SQLToYAML sty = new SQLToYAML("tstTestTable1,tstTestTable2", sw, dataLayer, 50);
+            int progressNum = 0;
+            bool finished = false;
+            sty.MadeProgress += (s, e) => progressNum++;
+            sty.ExtractionFinished += (s, e) => finished = true;
+            sty.ConvertSQLToYAML();
+
+            StringBuilder o = new StringBuilder();
+            o.AppendLine("---");
+            o.AppendLine("{ table_name: 'tstTestTable1', columns: ['col1', 'col2'], data: [{col1: \"value1\", col2: 2}]}");
+            o.AppendLine("...");
+            o.AppendLine("---");
+            o.AppendLine("{ table_name: 'tstTestTable2', columns: ['col1', 'col2'], data: [{col1: !!float 1, col2: Yes}]}");
+            o.AppendLine("...");
+
+            Assert.IsTrue(finished);
+            Assert.AreEqual(2, progressNum);
+            Assert.AreEqual(o.ToString(), sw.ToString());
+        }
     }
 }
