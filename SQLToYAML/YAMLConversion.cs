@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ExtractorLib
 {
-    class YAMLConversion
+    public class YAMLConversion
     {
         public static string ConvertValue(System.DBNull value)
         {
