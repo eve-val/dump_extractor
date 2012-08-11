@@ -38,7 +38,7 @@
 				</Directory>
 			</Directory>
 			<Directory Id="ProgramMenuFolder" Name="Programs">
-				<Directory Id="ProgramMenuDir" Name="Foobar 1.0">
+				<Directory Id="ProgramMenuDir" Name="Eve-Val">
 					<Component Id="ProgramMenuDir" Guid="a358a729-cd57-441c-a62f-f8843335eb5d">
 						<RemoveFolder Id="ProgramMenuDir" On="uninstall" />
 						<RegistryValue Root="HKCU" Key="Software\Eve-Val\Dump Extractor" Type="string" Value="" KeyPath="yes" />
