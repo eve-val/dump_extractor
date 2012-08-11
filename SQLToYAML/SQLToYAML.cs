@@ -94,9 +94,10 @@ namespace ExtractorLib
             long numRows = 0;
             foreach (string t in tablesToExtract)
             {
-                outputFile.WriteLine("---");
                 DataTable dataTable = dataLayer.RunQuery("SELECT * FROM " + t);
+                if (dataTable.Rows.Count == 0) continue;
 
+                outputFile.WriteLine("---");
                 outputFile.Write("{ table_name: '" + t + "', columns: ['");
                 
                 List<string> columns = new List<string>();
