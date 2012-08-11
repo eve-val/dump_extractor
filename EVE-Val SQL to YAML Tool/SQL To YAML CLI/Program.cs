@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using SQLToYAML;
+using ExtractorLib;
+using CommandLine;
 
 namespace SQL_To_YAML_CLI
 {
@@ -11,12 +12,27 @@ namespace SQL_To_YAML_CLI
     {
         static void Main(string[] args)
         {
-            StringWriter w = new StringWriter();
-            SQLToYAML.SQLToYAML sty = new SQLToYAML.SQLToYAML(w);
-            foreach (string table_name in sty.ListTables())
+            Options options = new Options();
+            if (!CommandLineParser.Default.ParseArguments(args, options))
             {
-                Console.WriteLine(table_name);
+                return;
             }
+            StreamWriter w = new StreamWriter(options.outputFile);
+            DataLayer d = new DataLayer(options.connectionString);
+            SQLToYAML sty = new SQLToYAML(options.tables, w, d, options.notificationPercent);
+            sty.MadeProgress += new MadeProgressEventHandler(sty_MadeProgress);
+            sty.ExtractionFinished += new ExtractionFinishedEventHandler(sty_ExtractionFinished);
+            sty.ConvertSQLToYAML();
+        }
+
+        static void sty_ExtractionFinished(object sender, EventArgs e)
+        {
+            Console.WriteLine("Finished");
+        }
+
+        static void sty_MadeProgress(object sender, SQLToYAML.ProgressEventArgs e)
+        {
+            Console.Write(".");
         }
     }
 }
