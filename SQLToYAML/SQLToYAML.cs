@@ -90,7 +90,7 @@ namespace ExtractorLib
             }
         }
 
-        protected virtual void ConvertSQLToYAML()
+        public virtual void ConvertSQLToYAML()
         {
             int progress_mod = (int)Math.Ceiling((RowCount / 100.0) * notificationPercent);
             long numRows = 0;
@@ -137,12 +137,6 @@ namespace ExtractorLib
             }
             outputFile.Flush();
             OnExtractionFinished(EventArgs.Empty);
-        }
-
-        public void StartProcessing()
-        {
-            Thread workerThread = new Thread(this.ConvertSQLToYAML);
-            workerThread.Start();
         }
     }
 }

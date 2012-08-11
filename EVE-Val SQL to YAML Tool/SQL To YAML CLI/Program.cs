@@ -22,7 +22,7 @@ namespace SQL_To_YAML_CLI
             SQLToYAML sty = new SQLToYAML(options.table, w, d, options.notificationPercent);
             sty.MadeProgress += new MadeProgressEventHandler(sty_MadeProgress);
             sty.ExtractionFinished += new ExtractionFinishedEventHandler(sty_ExtractionFinished);
-            sty.StartProcessing();
+            sty.ConvertSQLToYAML();
         }
 
         static void sty_ExtractionFinished(object sender, EventArgs e)
