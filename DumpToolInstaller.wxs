@@ -47,12 +47,15 @@
 			</Directory>
 			<Directory Id="DesktopFolder" Name="Desktop" />
 		</Directory>
-		<Feature Id="Complete" Level="1">
+		<Feature Id="Complete" Title="Dump Extractor 1.0" Description="The complete package" Display="expand"
+			ConfigurableDirectory="INSTALLDIR" Level="1">
 			<ComponentRef Id="MainExecutable" />
 			<ComponentRef Id="CLIExecutable" />
 			<ComponentRef Id="HelperLibrary" />
 			<ComponentRef Id="ProgramMenuDir" />
 		</Feature>
+		<UIRef Id="WixUI_InstallDir" />
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 		<Icon Id="DumpExtractor.ico" SourceFile="DumpExtractor.ico" />
 	</Product>
 </Wix>
