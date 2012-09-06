@@ -33,7 +33,7 @@ namespace SQL_To_YAML_CLI
         {
             var help = new HelpText
             {
-                Heading = new HeadingInfo("CCP Dump Extractor"),
+                Heading = new HeadingInfo("CCP Dump Extractor v1.0.1"),
                 Copyright = new CopyrightInfo("Silas Snider", 2012),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true

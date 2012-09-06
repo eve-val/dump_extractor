@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ExtractorLibTest")]
+[assembly: AssemblyTitle("ExtractorLibTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ExtractorLibTest")]
+[assembly: AssemblyProduct("ExtractorLibTests")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("767547a9-ec6c-437a-b15c-1e268bad7f6d")]
+[assembly: Guid("ba63dd5c-6e4d-4dfc-af3a-2c7757489e9c")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -62,7 +62,13 @@ namespace EVE_Val_SQL_to_YAML_Tool
             prgProgress.Value += progress;
         }
 
+        private void completeProgress()
+        {
+            prgProgress.Value = 100;
+        }
+
         public delegate void UpdateProgressCallback(int progress);
+        public delegate void CompleteProgressCallback();
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
@@ -74,7 +80,7 @@ namespace EVE_Val_SQL_to_YAML_Tool
                 this.Dispatcher.Invoke(new UpdateProgressCallback(this.updateProgress), new object[] {5});
             };
             sty.ExtractionFinished += (o, v) => {
-                this.Dispatcher.Invoke(new UpdateProgressCallback(this.updateProgress), new object[] { 5 });
+                this.Dispatcher.Invoke(new CompleteProgressCallback(this.completeProgress));
                 System.Windows.Forms.MessageBox.Show("Extraction Complete!");
                 runner = null;
             };
