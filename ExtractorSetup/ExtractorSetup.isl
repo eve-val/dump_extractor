@@ -1172,7 +1172,7 @@
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
-		<row><td>eve_val</td><td>ProgramMenuFolder</td><td>eve-val</td><td/><td>1</td><td/></row>
+		<row><td>eve_val</td><td>ProgramMenuFolder</td><td>EVE-Val</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="DrLocator">
