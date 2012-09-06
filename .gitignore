@@ -7,3 +7,6 @@ TestResult.xml
 *.msi
 *.wixpdb
 *.wixobj
+*/packages/*
+*/ExtractorSetup/Express/*/LogFiles/*
+*/ExtractorSetup/Express/*/Reports/*

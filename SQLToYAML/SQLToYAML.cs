@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Data;
 using System.Data.SqlClient;
+using YamlDotNet.RepresentationModel.Serialization;
 
 namespace ExtractorLib
 {
@@ -92,13 +93,16 @@ namespace ExtractorLib
         {
             int progress_mod = (int)Math.Ceiling((RowCount / 100.0) * notificationPercent);
             long numRows = 0;
+
+            var serializer = new YamlSerializer();
+
             foreach (string t in tablesToExtract)
             {
                 DataTable dataTable = dataLayer.RunQuery("SELECT * FROM " + t);
                 if (dataTable.Rows.Count == 0) continue;
 
-                outputFile.WriteLine("---");
-                outputFile.Write("{ table_name: '" + t + "', columns: ['");
+                Dictionary<String, object> table = new Dictionary<string, object>();
+                table["table_name"] = t;
                 
                 List<string> columns = new List<string>();
 
@@ -107,34 +111,32 @@ namespace ExtractorLib
                     columns.Add(column.ColumnName);
                 }
 
-                outputFile.Write(String.Join("', '", columns) + "'], data: [");
-                DataRow sentinel = dataTable.Rows[dataTable.Rows.Count - 1];
+                table["columns"] = columns;
+                table["data"] = new List<Dictionary<String, object>>();
 
                 foreach (DataRow row in dataTable.Rows)
                 {
-                    outputFile.Write("{");
+                    Dictionary<String, object> row_dict = new Dictionary<String, object>();
                     numRows++;
-                    string[] data = new string[columns.Count()];
+
                     for (int i = 0; i < columns.Count(); i++ )
                     {
-                        string c = YAMLConversion.ConvertValue((dynamic)row[columns[i]]);
-                        if (c == null) continue;
-                        data[i] = columns[i] + ": " + c;
-                    }
-                    string joinedString = String.Join(", ", data.Where<string>((item) => item != null && item != ""));
-                    outputFile.Write(joinedString + "}");
-                    if (sentinel != row) outputFile.Write(",");
-                    if ((numRows % 100) == 0)
-                    {
-                        outputFile.Flush();
+                        if (row[columns[i]].Equals(System.DBNull.Value))
+                        {
+                            continue;
+                        }
+                        row_dict[columns[i]] = row[columns[i]]; 
                     }
                     if ((numRows % progress_mod) == 0)
                     {
                         OnMadeProgress(numRows);
                     }
+                    ((List<Dictionary<String, object>>) table["data"]).Add(row_dict);
                 }
-                outputFile.WriteLine("]}");
+                outputFile.WriteLine("---");
+                serializer.Serialize(outputFile, table);
                 outputFile.WriteLine("...");
+                outputFile.Flush();
             }
             outputFile.Flush();
             OnExtractionFinished(EventArgs.Empty);
