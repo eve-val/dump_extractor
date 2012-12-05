@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace ExtractorLib
 {
@@ -85,12 +86,10 @@ namespace ExtractorLib
             }
         }
 
-        public virtual void ConvertSQLToYAML()
+        public virtual void Convert()
         {
             int progress_mod = (int)Math.Ceiling((RowCount / 100.0) * notificationPercent);
             long numRows = 0;
-
-            var serializer = new YamlSerializer();
 
             foreach (string t in tablesToExtract)
             {
@@ -130,7 +129,7 @@ namespace ExtractorLib
                     ((List<Dictionary<String, object>>) table["data"]).Add(row_dict);
                 }
                 outputFile.WriteLine("---");
-                serializer.Serialize(outputFile, table);
+                outputFile.WriteLine(JsonConvert.SerializeObject(table));
                 outputFile.WriteLine("...");
                 outputFile.Flush();
             }

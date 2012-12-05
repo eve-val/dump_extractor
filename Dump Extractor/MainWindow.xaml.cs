@@ -24,7 +24,7 @@ namespace EVE_Val_SQL_to_YAML_Tool
     public partial class MainWindow : Window
     {
         private StreamWriter outputFile;
-        private ExtractorLib sty;
+        private ExtractorLib.ExtractorLib sty;
         private DataLayer dataLayer;
         private string[] tables;
         private Thread runner;
@@ -74,7 +74,7 @@ namespace EVE_Val_SQL_to_YAML_Tool
         {
             if (runner != null) return;
             prgProgress.Value = 0;
-            sty = new ExtractorLib(String.Join(",", lstTables.SelectedItems.OfType<string>().ToArray<string>()),
+            sty = new ExtractorLib.ExtractorLib(String.Join(",", lstTables.SelectedItems.OfType<string>().ToArray<string>()),
                                 outputFile, dataLayer, 5);
             sty.MadeProgress += (o, v) => {
                 this.Dispatcher.Invoke(new UpdateProgressCallback(this.updateProgress), new object[] {5});
@@ -84,7 +84,7 @@ namespace EVE_Val_SQL_to_YAML_Tool
                 System.Windows.Forms.MessageBox.Show("Extraction Complete!");
                 runner = null;
             };
-            runner = new Thread(sty.ConvertSQLToYAML);
+            runner = new Thread(sty.Convert);
             runner.Start();
         }
 

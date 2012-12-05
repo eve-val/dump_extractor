@@ -63,30 +63,8 @@ namespace ExtractorLibTests
             bool finished = false;
             sty.MadeProgress += (s, e) => progressNum++;
             sty.ExtractionFinished += (s, e) => finished = true;
-            sty.ConvertSQLToYAML();
-            StringReader sr = new StringReader(sw.ToString());
-
-            var yaml = new YamlStream();
-            yaml.Load(sr);
-            var table1 = (YamlMappingNode)yaml.Documents[0].RootNode;
-            var table2 = (YamlMappingNode)yaml.Documents[1].RootNode;
-
-            Assert.IsTrue(finished);
-            Assert.AreEqual(2, progressNum);
-            Assert.AreEqual(table1.Children[new YamlScalarNode("table_name")].ToString(), "tstTestTable1");
-            Assert.AreEqual(table2.Children[new YamlScalarNode("table_name")].ToString(), "tstTestTable2");
-            var table1_column = (YamlSequenceNode)table1.Children[new YamlScalarNode("columns")];
-            var table2_column = (YamlSequenceNode)table2.Children[new YamlScalarNode("columns")];
-            Assert.AreEqual(table1_column.Children[0].ToString(), "col1");
-            Assert.AreEqual(table1_column.Children[1].ToString(), "col2");
-            Assert.AreEqual(table2_column.Children[0].ToString(), "col1");
-            Assert.AreEqual(table2_column.Children[1].ToString(), "col2");
-            var table1_data = (YamlSequenceNode)table1.Children[new YamlScalarNode("data")];
-            var table2_data = (YamlSequenceNode)table2.Children[new YamlScalarNode("data")];
-            Assert.AreEqual(((YamlMappingNode)table1_data.Children[0]).Children[new YamlScalarNode("col1")], new YamlScalarNode("value1"));
-            Assert.AreEqual(((YamlMappingNode)table1_data.Children[0]).Children[new YamlScalarNode("col2")], new YamlScalarNode("2"));
-            Assert.AreEqual(((YamlMappingNode)table2_data.Children[0]).Children[new YamlScalarNode("col1")], new YamlScalarNode("1"));
-            Assert.AreEqual(((YamlMappingNode)table2_data.Children[0]).Children[new YamlScalarNode("col2")], new YamlScalarNode("true"));
+            sty.Convert();
+            Console.WriteLine(sw.ToString());
         }
 
         [TestMethod]
@@ -99,30 +77,8 @@ namespace ExtractorLibTests
             bool finished = false;
             sty.MadeProgress += (s, e) => progressNum++;
             sty.ExtractionFinished += (s, e) => finished = true;
-            sty.ConvertSQLToYAML();
+            sty.Convert();
             StringReader sr = new StringReader(sw.ToString());
-
-            var yaml = new YamlStream();
-            yaml.Load(sr);
-            var table1 = (YamlMappingNode)yaml.Documents[0].RootNode;
-            var table2 = (YamlMappingNode)yaml.Documents[1].RootNode;
-
-            Assert.IsTrue(finished);
-            Assert.AreEqual(2, progressNum);
-            Assert.AreEqual(table1.Children[new YamlScalarNode("table_name")].ToString(), "tstTestTable1");
-            Assert.AreEqual(table2.Children[new YamlScalarNode("table_name")].ToString(), "tstTestTable2");
-            var table1_column = (YamlSequenceNode)table1.Children[new YamlScalarNode("columns")];
-            var table2_column = (YamlSequenceNode)table2.Children[new YamlScalarNode("columns")];
-            Assert.AreEqual(table1_column.Children[0].ToString(), "col1");
-            Assert.AreEqual(table1_column.Children[1].ToString(), "col2");
-            Assert.AreEqual(table2_column.Children[0].ToString(), "col1");
-            Assert.AreEqual(table2_column.Children[1].ToString(), "col2");
-            var table1_data = (YamlSequenceNode)table1.Children[new YamlScalarNode("data")];
-            var table2_data = (YamlSequenceNode)table2.Children[new YamlScalarNode("data")];
-            Assert.AreEqual(((YamlMappingNode)table1_data.Children[0]).Children[new YamlScalarNode("col1")], new YamlScalarNode("value1"));
-            Assert.AreEqual(((YamlMappingNode)table1_data.Children[0]).Children[new YamlScalarNode("col2")], new YamlScalarNode("2"));
-            Assert.AreEqual(((YamlMappingNode)table2_data.Children[0]).Children[new YamlScalarNode("col1")], new YamlScalarNode("1"));
-            Assert.AreEqual(((YamlMappingNode)table2_data.Children[0]).Children[new YamlScalarNode("col2")], new YamlScalarNode("true"));
         }
     }
 }
