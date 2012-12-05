@@ -91,6 +91,8 @@ namespace ExtractorLib
             int progress_mod = (int)Math.Ceiling((RowCount / 100.0) * notificationPercent);
             long numRows = 0;
 
+            var serializer = JsonSerializer.Create(new JsonSerializerSettings());
+
             foreach (string t in tablesToExtract)
             {
                 DataTable dataTable = dataLayer.RunQuery("SELECT * FROM " + t);
@@ -129,7 +131,7 @@ namespace ExtractorLib
                     ((List<Dictionary<String, object>>) table["data"]).Add(row_dict);
                 }
                 outputFile.WriteLine("---");
-                outputFile.WriteLine(JsonConvert.SerializeObject(table));
+                serializer.Serialize(outputFile, table);
                 outputFile.WriteLine("...");
                 outputFile.Flush();
             }
