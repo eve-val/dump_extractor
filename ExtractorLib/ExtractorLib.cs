@@ -132,6 +132,7 @@ namespace ExtractorLib
                 }
                 outputFile.WriteLine("---");
                 serializer.Serialize(outputFile, table);
+                outputFile.WriteLine();
                 outputFile.WriteLine("...");
                 outputFile.Flush();
             }
