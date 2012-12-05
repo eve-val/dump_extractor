@@ -8,8 +8,8 @@
     <ProjectGuid>{D58D13DD-BBDE-468C-9DFE-A55FF27F8381}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SQL_To_YAML_CLI</RootNamespace>
-    <AssemblyName>sql_to_yaml</AssemblyName>
+    <RootNamespace>Dump_Extractor_CLI</RootNamespace>
+    <AssemblyName>dump_extractor</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -49,7 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>SQL_To_YAML_CLI.Program</StartupObject>
+    <StartupObject>Dump_Extractor_CLI.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

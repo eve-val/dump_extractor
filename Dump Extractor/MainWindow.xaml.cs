@@ -41,8 +41,8 @@ namespace Dump_Extractor_GUI
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*";
-            dlg.Title = "YAML Save Location";
+            dlg.Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*";
+            dlg.Title = "JSON Save Location";
             dlg.ShowDialog();
 
             if (dlg.FileName != "")

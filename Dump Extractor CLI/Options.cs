@@ -33,12 +33,12 @@ namespace Dump_Extractor_CLI
         {
             var help = new HelpText
             {
-                Heading = new HeadingInfo("CCP Dump Extractor v1.0.1"),
+                Heading = new HeadingInfo("Dump Extractor v1.0.2"),
                 Copyright = new CopyrightInfo("Silas Snider", 2012),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true
             };
-            help.AddPreOptionsLine("Usage: sql_to_yaml -o FILENAME");
+            help.AddPreOptionsLine("Usage: dump_extractor -o FILENAME");
             help.AddOptions(this);
             return help;
         }
