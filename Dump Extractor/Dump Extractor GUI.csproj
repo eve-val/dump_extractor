@@ -97,7 +97,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SQLToYAML\ExtractorLib.csproj">
+    <ProjectReference Include="..\ExtractorLib\ExtractorLib.csproj">
       <Project>{E271FABA-D0CE-4FCF-88F5-8925A22B0053}</Project>
       <Name>ExtractorLib</Name>
     </ProjectReference>
