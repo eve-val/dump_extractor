@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ExtractorLib;
 
-namespace EVE_Val_SQL_to_YAML_Tool
+namespace Dump_Extractor_GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -90,7 +90,15 @@ namespace EVE_Val_SQL_to_YAML_Tool
 
         private void btnLoadTables_Click(object sender, RoutedEventArgs e)
         {
-            dataLayer = new DataLayer(txtConnection.Text);
+            try
+            {
+                dataLayer = new DataLayer(txtConnection.Text);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return;
+            }
             tables = dataLayer.TableList;
             Array.Sort<string>(tables);
             lstTables.ItemsSource = tables;

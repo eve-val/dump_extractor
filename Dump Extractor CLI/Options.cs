@@ -5,7 +5,7 @@ using System.Text;
 using CommandLine;
 using CommandLine.Text;
 
-namespace SQL_To_YAML_CLI
+namespace Dump_Extractor_CLI
 {
     class Options
     {

@@ -25,7 +25,14 @@ namespace ExtractorLib
         public DataLayer(string connectionString)
         {
             conn = new SqlConnection(connectionString);
-            conn.Open();
+            try
+            {
+                conn.Open();
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Unable to connect to specified SQL Server.");
+            }
         }
 
         public string[] TableList

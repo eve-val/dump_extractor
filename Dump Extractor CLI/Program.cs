@@ -6,7 +6,7 @@ using System.IO;
 using ExtractorLib;
 using CommandLine;
 
-namespace SQL_To_YAML_CLI
+namespace Dump_Extractor_CLI
 {
     class Program
     {
@@ -18,7 +18,16 @@ namespace SQL_To_YAML_CLI
                 return;
             }
             StreamWriter w = new StreamWriter(options.outputFile);
-            DataLayer d = new DataLayer(options.connectionString);
+            DataLayer d;
+            try
+            {
+                d = new DataLayer(options.connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                return;
+            }
             ExtractorLib.ExtractorLib sty = new ExtractorLib.ExtractorLib(options.tables, w, d, options.notificationPercent);
             sty.MadeProgress += new MadeProgressEventHandler(sty_MadeProgress);
             sty.ExtractionFinished += new ExtractionFinishedEventHandler(sty_ExtractionFinished);

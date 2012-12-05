@@ -1,4 +1,4 @@
-﻿<Window x:Class="EVE_Val_SQL_to_YAML_Tool.MainWindow"
+﻿<Window x:Class="Dump_Extractor_GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="EVE-Val SQL To YAML Tool v1.0.1" Height="484" Width="643" Icon="DumpExtractor.ico">

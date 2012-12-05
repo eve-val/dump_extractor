@@ -1,4 +1,4 @@
-﻿<Application x:Class="EVE_Val_SQL_to_YAML_Tool.App"
+﻿<Application x:Class="Dump_Extractor_GUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">

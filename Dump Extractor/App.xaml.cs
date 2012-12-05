@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace EVE_Val_SQL_to_YAML_Tool
+namespace Dump_Extractor_GUI
 {
     /// <summary>
     /// Interaction logic for App.xaml

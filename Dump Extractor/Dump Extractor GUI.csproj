@@ -8,7 +8,7 @@
     <ProjectGuid>{57582151-8AA3-4C79-AEEE-04BF79A2857E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EVE_Val_SQL_to_YAML_Tool</RootNamespace>
+    <RootNamespace>Dump_Extractor_GUI</RootNamespace>
     <AssemblyName>EVE-Val SQL to YAML Tool</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
