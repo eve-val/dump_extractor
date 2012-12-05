@@ -19,7 +19,7 @@ namespace SQL_To_YAML_CLI
             }
             StreamWriter w = new StreamWriter(options.outputFile);
             DataLayer d = new DataLayer(options.connectionString);
-            SQLToYAML sty = new SQLToYAML(options.tables, w, d, options.notificationPercent);
+            ExtractorLib sty = new ExtractorLib(options.tables, w, d, options.notificationPercent);
             sty.MadeProgress += new MadeProgressEventHandler(sty_MadeProgress);
             sty.ExtractionFinished += new ExtractionFinishedEventHandler(sty_ExtractionFinished);
             sty.ConvertSQLToYAML();
@@ -30,7 +30,7 @@ namespace SQL_To_YAML_CLI
             Console.WriteLine("Finished");
         }
 
-        static void sty_MadeProgress(object sender, SQLToYAML.ProgressEventArgs e)
+        static void sty_MadeProgress(object sender, ExtractorLib.ProgressEventArgs e)
         {
             Console.Write(".");
         }

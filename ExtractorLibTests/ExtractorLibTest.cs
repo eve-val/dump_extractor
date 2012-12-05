@@ -4,7 +4,6 @@ using System.IO;
 using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ExtractorLib;
-using YamlDotNet.RepresentationModel;
 
 namespace ExtractorLibTests
 {
@@ -59,7 +58,7 @@ namespace ExtractorLibTests
         {
             StringWriter sw = new StringWriter();
             TestDataLayer dataLayer = new TestDataLayer();
-            SQLToYAML sty = new SQLToYAML(sw, dataLayer, 50);
+            ExtractorLib.ExtractorLib sty = new ExtractorLib.ExtractorLib(sw, dataLayer, 50);
             int progressNum = 0;
             bool finished = false;
             sty.MadeProgress += (s, e) => progressNum++;
@@ -95,7 +94,7 @@ namespace ExtractorLibTests
         {
             StringWriter sw = new StringWriter();
             TestDataLayer dataLayer = new TestDataLayer();
-            SQLToYAML sty = new SQLToYAML("tstTestTable1,tstTestTable2", sw, dataLayer, 50);
+            ExtractorLib.ExtractorLib sty = new ExtractorLib.ExtractorLib("tstTestTable1,tstTestTable2", sw, dataLayer, 50);
             int progressNum = 0;
             bool finished = false;
             sty.MadeProgress += (s, e) => progressNum++;
